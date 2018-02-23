@@ -2,33 +2,40 @@
 class BinTreeNode(object):
 
 	def __init__(self,data=None,left=None,right=None):
-		self.right = right
 		self.data = data
 		self.left = left
+		self.right = right
 
-def pre_visit(BinTreeNode):
-	if BinTreeNode == None:
-		return
-	else:
-		print(BinTreeNode.data)
-		pre_visit(BinTreeNode.left)
-		pre_visit(BinTreeNode.right)
 
-def middle_visit(BinTreeNode):
-	if BinTreeNode == None:
-		return
-	else:
-		pre_visit(BinTreeNode.left)
-		print(BinTreeNode.data)
-		pre_visit(BinTreeNode.right)
+class BinTree(object):
 
-def post_visit(BinTreeNode):
-	if BinTreeNode == None:
-		return
-	else:
-		pre_visit(BinTreeNode.left)
-		pre_visit(BinTreeNode.right)
-		print(BinTreeNode.data)
+	def __init__(self,root = None):
+		self.root = root
+
+	def pre_visit(self,BinTreeNode):
+		if BinTreeNode == None:
+			return
+		else:
+			print(BinTreeNode.data)
+			self.pre_visit(BinTreeNode.left)
+			self.pre_visit(BinTreeNode.right)
+
+	def middle_visit(self,BinTreeNode):
+		if BinTreeNode == None:
+			return
+		else:
+			self.middle_visit(BinTreeNode.left)
+			print(BinTreeNode.data)
+			self.middle_visit(BinTreeNode.right)
+
+	@classmethod
+	def post_visit(cls,BinTreeNode):
+		if BinTreeNode == None:
+			return
+		else:
+			cls.post_visit(BinTreeNode.left)
+			cls.post_visit(BinTreeNode.right)
+			print(BinTreeNode.data)
 
 
 node_D = BinTreeNode('D')
@@ -38,13 +45,15 @@ node_F = BinTreeNode('F')
 node_C = BinTreeNode('C',node_F)
 node_A = BinTreeNode('A',node_B,node_C)
 
+bintree = BinTree(node_A)
+
 
 print('-----二叉树遍历-----')
 print('-----前序遍历-----')
-pre_visit(node_A)
+bintree.pre_visit(node_A)
 
 print('-----中序遍历-----')
-middle_visit(node_A)
+bintree.middle_visit(node_A)
 
 print('-----后序遍历-----')
-post_visit(node_A)
+BinTree.post_visit(node_A)
